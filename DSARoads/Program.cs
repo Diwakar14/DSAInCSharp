@@ -7,7 +7,10 @@
             Algos a = new Algos();
             //a.RemoveEvenNumber();
             //a.PalindromString();
-            a.MinInAArray();
+            //a.MinInAArray();
+
+            //a.BinarySearch();
+            a.FindMaxSum();
 
            
         }
