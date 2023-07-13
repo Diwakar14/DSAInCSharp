@@ -8,11 +8,21 @@
             //a.RemoveEvenNumber();
             //a.PalindromString();
             //a.MinInAArray();
-
             //a.BinarySearch();
-            a.FindMaxSum();
+            // a.FindMaxSum();
+            // a.ReverseAString();
+            // a.ReverseStringByWord();
+            // a.ReverseANumber();
+            // a.PrintStar();
+            // a.UniqueName();
+            // a.CountCharacter();
+            // a.PalindromicProductOfThree();
+            // a.FindLargestDigitInGivenN();
+            // a.MaxOccuranceOfChar();
+            a.FindDuplicateInArray();
 
-           
+
+
         }
     }
 }
