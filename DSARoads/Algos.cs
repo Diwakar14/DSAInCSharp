@@ -83,6 +83,23 @@ namespace DSARoads
 
         }
 
+        public int[] SelectionSort(int[] arr)
+        {
+            return arr;
+        }
+
+        /// <summary>
+        /// Thing of card suffing. Time Complexity O(n*n);
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns>Sorted Array</returns>
+        public int[] InsertionSort(int[] arr)
+        {
+            return arr;
+        }
+
+
+
         public void BinarySearch()
         {
             int[] nums = new int[] { 12, 4, 5, 9, 10, 11, 12, 13 };

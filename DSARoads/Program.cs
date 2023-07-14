@@ -10,7 +10,9 @@
             //a.MinInAArray();
 
             //a.BinarySearch();
-            a.FindMaxSum();
+            //a.FindMaxSum();
+
+            
 
            
         }
