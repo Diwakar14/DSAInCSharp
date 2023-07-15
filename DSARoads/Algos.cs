@@ -2,6 +2,7 @@
 using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -483,6 +484,368 @@ namespace DSARoads
 
         public void FindSubSetHavingSumK()
         {
+            int[] nums = { 1, 2, 3 };
+
+            Dictionary<int, int> mp = new();
+
+            mp[0] = 1;
+
+            int sum = 0;
+            int k = 3;
+
+            int count = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                sum += nums[i];
+
+                if (mp.ContainsKey(sum - k))
+                {
+                    count += mp[sum - k];
+                }
+
+                if (mp.ContainsKey(sum))
+                {
+                    mp[sum]++;
+                }
+                else
+                {
+                    mp.Add(sum, 1);
+                }
+            }
+
+            Console.WriteLine(count);
+
+
+        }
+
+        public void LongestSubstringWithNonRepeating()
+        {
+
+            string s = "abcaaaaaaaaaabcbb";
+            int maxCount = 0;
+            Dictionary<char, int> mp = new();
+
+            for (int i = 0, j = 0; j < s.Length; j++)
+            {
+                if (mp.ContainsKey(s[j]))
+                    mp[s[j]]++;
+                else
+                    mp.Add(s[j], 1);
+
+                while (mp[s[j]] > 1)
+                    mp[s[i++]]--;
+
+
+                maxCount = Math.Max(maxCount, j - i + 1);
+
+            }
+
+            Console.WriteLine(maxCount);
+        }
+
+        public void LongestSubAtLeastKChar()
+        {
+            int k = 3, k2 = 2;
+            //string s = "aaabb";
+            string s = "dababebc";
+            int count = 0;
+
+            Dictionary<char, int> mp = new();
+            int maxLen = 0;
+            int i = 0, j = 0;
+
+            while (j < s.Length && i < s.Length)
+            {
+                if (mp.ContainsKey(s[j])) mp[s[j]]++;
+                else mp.Add(s[j], 1);
+
+                if (mp[s[j]] == k2)
+                    count++;
+
+                if (count == mp.Count)
+                    maxLen = Math.Max(maxLen, j - i + 1);
+
+                j++;
+
+                if (j == s.Length)
+                {
+                    mp.Clear();
+                    count = 0;
+                    i++;
+                    j = i;
+                }
+            }
+
+            Console.WriteLine(maxLen);
+
+        }
+
+        public void LargestSubEqualToZero()
+        {
+            int[] A = new int[] { 1, 2, -2, 4, -4 };
+
+            Dictionary<int, int> mp = new();
+            mp[0] = 1;
+            int maxLen = 0;
+            int sum = 0;
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                sum += A[i];
+
+                if (sum == 0)
+                {
+                    maxLen = i + 1;
+                }
+
+                if (mp.ContainsKey(sum))
+                {
+                    maxLen = Math.Max(maxLen, i - mp[sum]);
+                }
+                else
+                {
+                    if (mp.ContainsKey(sum))
+                    {
+                        mp[sum] = i;
+                    }
+                    else
+                    {
+                        mp.Add(sum, i);
+                    }
+                }
+            }
+
+            Console.WriteLine(maxLen);
+
+
+        }
+
+        public void LongestSubArrLen()
+        {
+            int[] nums = new int[] { 0, 1, 1, 0, 0, 1 };
+
+            Dictionary<int, int> mp = new();
+            int sum = 0;
+
+            int maxLen = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == 0)
+                {
+                    sum += -1;
+                }
+                else
+                {
+                    sum += 1;
+                }
+
+                if (sum == 1)
+                {
+                    maxLen = i + 1;
+                }
+                else if (!mp.ContainsKey(sum))
+                {
+                    mp[sum] = i;
+                }
+
+                if (mp.ContainsKey(sum - 1))
+                {
+                    maxLen = Math.Max(maxLen, i - mp[sum - 1]);
+                }
+            }
+
+            Console.WriteLine(maxLen);
+        }
+
+        public void FindRepeatingElement()
+        {
+            int[] nums = { 10, 5, 3, 4, 3, 5, 6 };
+
+            Dictionary<int, int> mp = new();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (mp.ContainsKey(nums[i]))
+                {
+                    mp[nums[i]]++;
+                }
+                else
+                {
+                    mp.Add(nums[i], 1);
+                }
+            }
+
+
+            foreach (var item in mp)
+            {
+                if (item.Value > 1)
+                {
+                    Console.WriteLine(item.Key);
+                    break;
+                }
+            }
+        }
+
+        public void TwoSum()
+        {
+            int k = 9;
+            int[] nums = { 2, 7, 11, 15 };
+
+            Dictionary<int, int> mp = new();
+
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (mp.ContainsKey(k - nums[i]))
+                {
+                    Console.WriteLine(mp[k - nums[i]]);
+                    Console.WriteLine(i);
+
+                    break;
+                }
+
+
+
+                if (mp.ContainsKey(nums[i]))
+                    mp[nums[i]]= i;
+                else
+                    mp.Add(nums[i], i);
+            }
+
+
+        }
+
+
+        public void ThreeSum()
+        {
+            //int[] nums = { 12, 3, 4, 1, 6, 9 };
+            int[] nums = { 1, 4, 45, 6, 10, 8 };
+            int k = 22;
+            Dictionary<int, int> mp = new Dictionary<int, int>();
+
+
+            for (int i = 0; i < nums.Length-2; i++)
+            {
+
+                int j = i + 1;
+                while(j < nums.Length)
+                {
+                    int sum = nums[i] + nums[j];
+
+                    if(mp.ContainsKey(k - sum))
+                    {
+                        Console.WriteLine(nums[mp[k-sum]]);
+                        Console.WriteLine(nums[i]);
+                        Console.WriteLine(nums[j]);
+
+                        return;
+                    }
+
+
+                    if (mp.ContainsKey(nums[j]))
+                    {
+                        mp[nums[j]] = j;
+                    }
+                    else
+                    {
+                        mp.Add(nums[j], j);
+                    }
+
+                    j++;
+                }
+
+
+            }
+        }
+
+
+        public void FourSum()
+        {
+            int[] nums = { 10, 20, 30, 40, 1, 2 };
+            int target = 91;
+
+            Dictionary<int, int> mp = new();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+
+                for (int j = i+1; j <nums.Length; j++)
+                {
+
+                    int k = j + 1;
+
+                    while (k < nums.Length)
+                    {
+                        int sum = nums[i] + nums[j] + nums[k];
+                        if(mp.ContainsKey(target - sum))
+                        {
+
+                            if(i != mp[target - sum] && j != mp[target - sum])
+                            {
+                                Console.WriteLine(nums[mp[target - sum]]);
+                                Console.WriteLine(nums[k]);
+                                Console.WriteLine(nums[j]);
+                                Console.WriteLine(nums[i]);
+
+                                return; 
+                            }
+
+                        }
+
+                        if (mp.ContainsKey(nums[k]))
+                        {
+                            mp[nums[k]] = k;
+                        }
+                        else
+                        {
+                            mp.Add(nums[k], k);
+                        }
+
+                        k++;
+                    }
+
+                }
+            }
+
+
+        }
+
+
+        public void Diffk()
+        {
+            int[] nums = { 5, 20, 3, 2, 50, 80};
+            //int[] nums = { 1, 8, 30, 40, 100 };
+            int k = 78;//-60;// 78;
+
+
+            Dictionary<int, int> mp = new();
+
+
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (mp.ContainsKey(nums[i] - Math.Abs(k)))
+                {
+
+                    if(i != mp[nums[i] - Math.Abs(k)])
+                    {
+                        Console.WriteLine(nums[mp[nums[i] - Math.Abs(k)]]);
+                        Console.WriteLine(nums[i]);
+
+                    }
+                }
+
+                if (mp.ContainsKey(nums[i]))
+                {
+                    mp[nums[i]] = i;
+                }
+                else
+                {
+                    mp.Add(nums[i], i);
+                }
+            }
+
 
         }
 

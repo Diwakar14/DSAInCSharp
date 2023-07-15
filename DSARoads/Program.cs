@@ -19,7 +19,17 @@
             // a.PalindromicProductOfThree();
             // a.FindLargestDigitInGivenN();
             // a.MaxOccuranceOfChar();
-            a.FindDuplicateInArray();
+            // a.FindDuplicateInArray();
+            //a.LongestSubstringWithNonRepeating();
+            //a.FindSubSetHavingSumK();
+            //a.LongestSubAtLeastKChar();
+            //a.LargestSubEqualToZero();
+            //a.LongestSubArrLen();
+            //a.FindRepeatingElement();
+            //a.TwoSum();
+            //a.ThreeSum();
+            //a.FourSum();
+            a.Diffk();
 
 
 
