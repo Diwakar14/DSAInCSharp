@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Buffers;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -821,8 +822,6 @@ namespace DSARoads
 
             Dictionary<int, int> mp = new();
 
-
-
             for (int i = 0; i < nums.Length; i++)
             {
                 if (mp.ContainsKey(nums[i] - Math.Abs(k)))
@@ -846,6 +845,104 @@ namespace DSARoads
                 }
             }
 
+
+        }
+
+        public void Anangram()
+        {
+            string[] animals = { "cat", "dog", "god", "tca" };
+            
+            Dictionary<string, int> mp = new();
+
+
+            for (int i = 0; i < animals.Length; i++)
+            {
+                var animal = string.Join("",animals[i].OrderBy(x => x).ToArray());
+                if (mp.ContainsKey(animal.ToString()))
+                {
+                    Console.WriteLine(mp[animal.ToString()]);
+                    Console.WriteLine(i);
+                }
+
+                if (mp.ContainsKey(animal.ToString()))
+                {
+                    mp[animal.ToString()] = i;
+                }
+                else
+                {
+                    mp.Add(animal.ToString(), i);
+                }
+            }
+            
+        }
+
+
+        public void PairWithXor()
+        {
+
+            int k = 5;
+            //int[] nums = { 5, 4, 10, 15, 7, 6 };
+            int[] nums = { 3, 6, 8, 10, 15, 50 };
+
+            Dictionary<int, int> mp = new Dictionary<int, int>();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (mp.ContainsKey(nums[i] ^ k))
+                {
+                    Console.WriteLine(nums[mp[nums[i] ^ k]]);
+                    Console.WriteLine(nums[i]);
+                }
+
+
+                if (mp.ContainsKey(nums[i]))
+                {
+                    mp[nums[i]] = i;
+                }
+                else
+                {
+                    mp.Add(nums[i], i);
+                }
+            }
+
+        }
+
+        public void SubarrayWithXorK()
+        {
+            int[] nums = { 4, 2, 2, 6, 4 };
+            //int[] nums = { 5, 6, 7, 8, 9 };
+            //int k = 5;
+            int k = 6;
+
+            Dictionary<int,int> mp= new Dictionary<int,int>();
+            mp[0] = 1;
+            int xor = 0;
+            int count = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                xor = xor ^ nums[i];
+                int key = xor ^ k;
+
+                if(mp.ContainsKey(key))
+                {
+                    if (mp[key] > 0)
+                    {
+                        count += mp[key];
+                    }
+                }
+
+                if (mp.ContainsKey(nums[i]))
+                {
+                    mp[nums[i]]++;
+                }
+                else
+                {
+                    mp.Add(nums[i], 1);
+                }
+            }
+
+            Console.WriteLine(count);
 
         }
 

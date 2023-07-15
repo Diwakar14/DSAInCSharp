@@ -29,7 +29,10 @@
             //a.TwoSum();
             //a.ThreeSum();
             //a.FourSum();
-            a.Diffk();
+            //a.Diffk();
+            //a.Anangram();
+            //a.PairWithXor();
+            a.SubarrayWithXorK();
 
 
 
