@@ -32,7 +32,16 @@
             //a.Diffk();
             //a.Anangram();
             //a.PairWithXor();
-            a.SubarrayWithXorK();
+            //a.SubarrayWithXorK();
+            //a.RotateArray();
+            //a.PivotIndex();
+            //a.PivotIndex();
+            //a.BinarySubarraySumK();
+            //a.MaxAverageSubarray();
+            //a.MinimumSizeSubarraySum();
+
+
+            Basics b = new Basics();
 
 
 
