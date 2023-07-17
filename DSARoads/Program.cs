@@ -20,8 +20,28 @@
             // a.FindLargestDigitInGivenN();
             // a.MaxOccuranceOfChar();
             // a.FindDuplicateInArray();
-            // a.SuffleDeckOfCard();
-            a.FindSubSetHavingSumK();
+            //a.LongestSubstringWithNonRepeating();
+            //a.FindSubSetHavingSumK();
+            //a.LongestSubAtLeastKChar();
+            //a.LargestSubEqualToZero();
+            //a.LongestSubArrLen();
+            //a.FindRepeatingElement();
+            //a.TwoSum();
+            //a.ThreeSum();
+            //a.FourSum();
+            //a.Diffk();
+            //a.Anangram();
+            //a.PairWithXor();
+            //a.SubarrayWithXorK();
+            //a.RotateArray();
+            //a.PivotIndex();
+            //a.PivotIndex();
+            //a.BinarySubarraySumK();
+            //a.MaxAverageSubarray();
+            //a.MinimumSizeSubarraySum();
+
+
+            Basics b = new Basics();
 
 
 

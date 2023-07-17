@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Buffers;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -82,6 +84,23 @@ namespace DSARoads
             return arr;
 
         }
+
+        public int[] SelectionSort(int[] arr)
+        {
+            return arr;
+        }
+
+        /// <summary>
+        /// Thing of card suffing. Time Complexity O(n*n);
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns>Sorted Array</returns>
+        public int[] InsertionSort(int[] arr)
+        {
+            return arr;
+        }
+
+
 
         public void BinarySearch()
         {
@@ -493,6 +512,7 @@ namespace DSARoads
 
         public void FindSubSetHavingSumK()
         {
+            int[] nums = { 1, 2, 3 };
             int[] nums = { 1, 2, 3, 5 };
             int k = 5;
 
@@ -522,6 +542,638 @@ namespace DSARoads
 
             System.Console.WriteLine(count);
 
+            Dictionary<int, int> mp = new();
+
+            mp[0] = 1;
+
+            int sum = 0;
+            int k = 3;
+
+            int count = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                sum += nums[i];
+
+                if (mp.ContainsKey(sum - k))
+                {
+                    count += mp[sum - k];
+                }
+
+                if (mp.ContainsKey(sum))
+                {
+                    mp[sum]++;
+                }
+                else
+                {
+                    mp.Add(sum, 1);
+                }
+            }
+
+            Console.WriteLine(count);
+
+
+        }
+
+        public void LongestSubstringWithNonRepeating()
+        {
+
+            string s = "abcaaaaaaaaaabcbb";
+            int maxCount = 0;
+            Dictionary<char, int> mp = new();
+
+            for (int i = 0, j = 0; j < s.Length; j++)
+            {
+                if (mp.ContainsKey(s[j]))
+                    mp[s[j]]++;
+                else
+                    mp.Add(s[j], 1);
+
+                while (mp[s[j]] > 1)
+                    mp[s[i++]]--;
+
+
+                maxCount = Math.Max(maxCount, j - i + 1);
+
+            }
+
+            Console.WriteLine(maxCount);
+        }
+
+        public void LongestSubAtLeastKChar()
+        {
+            int k = 3, k2 = 2;
+            //string s = "aaabb";
+            string s = "dababebc";
+            int count = 0;
+
+            Dictionary<char, int> mp = new();
+            int maxLen = 0;
+            int i = 0, j = 0;
+
+            while (j < s.Length && i < s.Length)
+            {
+                if (mp.ContainsKey(s[j])) mp[s[j]]++;
+                else mp.Add(s[j], 1);
+
+                if (mp[s[j]] == k2)
+                    count++;
+
+                if (count == mp.Count)
+                    maxLen = Math.Max(maxLen, j - i + 1);
+
+                j++;
+
+                if (j == s.Length)
+                {
+                    mp.Clear();
+                    count = 0;
+                    i++;
+                    j = i;
+                }
+            }
+
+            Console.WriteLine(maxLen);
+
+        }
+
+        public void LargestSubEqualToZero()
+        {
+            int[] A = new int[] { 1, 2, -2, 4, -4 };
+
+            Dictionary<int, int> mp = new();
+            mp[0] = 1;
+            int maxLen = 0;
+            int sum = 0;
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                sum += A[i];
+
+                if (sum == 0)
+                {
+                    maxLen = i + 1;
+                }
+
+                if (mp.ContainsKey(sum))
+                {
+                    maxLen = Math.Max(maxLen, i - mp[sum]);
+                }
+                else
+                {
+                    if (mp.ContainsKey(sum))
+                    {
+                        mp[sum] = i;
+                    }
+                    else
+                    {
+                        mp.Add(sum, i);
+                    }
+                }
+            }
+
+            Console.WriteLine(maxLen);
+
+
+        }
+
+        public void LongestSubArrLen()
+        {
+            int[] nums = new int[] { 0, 1, 1, 0, 0, 1 };
+
+            Dictionary<int, int> mp = new();
+            int sum = 0;
+
+            int maxLen = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == 0)
+                {
+                    sum += -1;
+                }
+                else
+                {
+                    sum += 1;
+                }
+
+                if (sum == 1)
+                {
+                    maxLen = i + 1;
+                }
+                else if (!mp.ContainsKey(sum))
+                {
+                    mp[sum] = i;
+                }
+
+                if (mp.ContainsKey(sum - 1))
+                {
+                    maxLen = Math.Max(maxLen, i - mp[sum - 1]);
+                }
+            }
+
+            Console.WriteLine(maxLen);
+        }
+
+        public void FindRepeatingElement()
+        {
+            int[] nums = { 10, 5, 3, 4, 3, 5, 6 };
+
+            Dictionary<int, int> mp = new();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (mp.ContainsKey(nums[i]))
+                {
+                    mp[nums[i]]++;
+                }
+                else
+                {
+                    mp.Add(nums[i], 1);
+                }
+            }
+
+
+            foreach (var item in mp)
+            {
+                if (item.Value > 1)
+                {
+                    Console.WriteLine(item.Key);
+                    break;
+                }
+            }
+        }
+
+        public void TwoSum()
+        {
+            int k = 9;
+            int[] nums = { 2, 7, 11, 15 };
+
+            Dictionary<int, int> mp = new();
+
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (mp.ContainsKey(k - nums[i]))
+                {
+                    Console.WriteLine(mp[k - nums[i]]);
+                    Console.WriteLine(i);
+
+                    break;
+                }
+
+
+
+                if (mp.ContainsKey(nums[i]))
+                    mp[nums[i]] = i;
+                else
+                    mp.Add(nums[i], i);
+            }
+
+
+        }
+
+
+        public void ThreeSum()
+        {
+            //int[] nums = { 12, 3, 4, 1, 6, 9 };
+            int[] nums = { 1, 4, 45, 6, 10, 8 };
+            int k = 22;
+            Dictionary<int, int> mp = new Dictionary<int, int>();
+
+
+            for (int i = 0; i < nums.Length - 2; i++)
+            {
+
+                int j = i + 1;
+                while (j < nums.Length)
+                {
+                    int sum = nums[i] + nums[j];
+
+                    if (mp.ContainsKey(k - sum))
+                    {
+                        Console.WriteLine(nums[mp[k - sum]]);
+                        Console.WriteLine(nums[i]);
+                        Console.WriteLine(nums[j]);
+
+                        return;
+                    }
+
+
+                    if (mp.ContainsKey(nums[j]))
+                    {
+                        mp[nums[j]] = j;
+                    }
+                    else
+                    {
+                        mp.Add(nums[j], j);
+                    }
+
+                    j++;
+                }
+
+
+            }
+        }
+
+
+        public void FourSum()
+        {
+            int[] nums = { 10, 20, 30, 40, 1, 2 };
+            int target = 91;
+
+            Dictionary<int, int> mp = new();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+
+                for (int j = i + 1; j < nums.Length; j++)
+                {
+
+                    int k = j + 1;
+
+                    while (k < nums.Length)
+                    {
+                        int sum = nums[i] + nums[j] + nums[k];
+                        if (mp.ContainsKey(target - sum))
+                        {
+
+                            if (i != mp[target - sum] && j != mp[target - sum])
+                            {
+                                Console.WriteLine(nums[mp[target - sum]]);
+                                Console.WriteLine(nums[k]);
+                                Console.WriteLine(nums[j]);
+                                Console.WriteLine(nums[i]);
+
+                                return;
+                            }
+
+                        }
+
+                        if (mp.ContainsKey(nums[k]))
+                        {
+                            mp[nums[k]] = k;
+                        }
+                        else
+                        {
+                            mp.Add(nums[k], k);
+                        }
+
+                        k++;
+                    }
+
+                }
+            }
+
+
+        }
+
+
+        public void Diffk()
+        {
+            int[] nums = { 5, 20, 3, 2, 50, 80 };
+            //int[] nums = { 1, 8, 30, 40, 100 };
+            int k = 78;//-60;// 78;
+
+
+            Dictionary<int, int> mp = new();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (mp.ContainsKey(nums[i] - Math.Abs(k)))
+                {
+
+                    if (i != mp[nums[i] - Math.Abs(k)])
+                    {
+                        Console.WriteLine(nums[mp[nums[i] - Math.Abs(k)]]);
+                        Console.WriteLine(nums[i]);
+
+                    }
+                }
+
+                if (mp.ContainsKey(nums[i]))
+                {
+                    mp[nums[i]] = i;
+                }
+                else
+                {
+                    mp.Add(nums[i], i);
+                }
+            }
+
+
+        }
+
+        public void Anangram()
+        {
+            string[] animals = { "cat", "dog", "god", "tca" };
+
+            Dictionary<string, int> mp = new();
+
+
+            for (int i = 0; i < animals.Length; i++)
+            {
+                var animal = string.Join("", animals[i].OrderBy(x => x).ToArray());
+                if (mp.ContainsKey(animal.ToString()))
+                {
+                    Console.WriteLine(mp[animal.ToString()]);
+                    Console.WriteLine(i);
+                }
+
+                if (mp.ContainsKey(animal.ToString()))
+                {
+                    mp[animal.ToString()] = i;
+                }
+                else
+                {
+                    mp.Add(animal.ToString(), i);
+                }
+            }
+
+        }
+
+
+        public void PairWithXor()
+        {
+
+            int k = 5;
+            //int[] nums = { 5, 4, 10, 15, 7, 6 };
+            int[] nums = { 3, 6, 8, 10, 15, 50 };
+
+            Dictionary<int, int> mp = new Dictionary<int, int>();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (mp.ContainsKey(nums[i] ^ k))
+                {
+                    Console.WriteLine(nums[mp[nums[i] ^ k]]);
+                    Console.WriteLine(nums[i]);
+                }
+
+
+                if (mp.ContainsKey(nums[i]))
+                {
+                    mp[nums[i]] = i;
+                }
+                else
+                {
+                    mp.Add(nums[i], i);
+                }
+            }
+
+        }
+
+        public void SubarrayWithXorK()
+        {
+            int[] nums = { 4, 2, 2, 6, 4 };
+            //int[] nums = { 5, 6, 7, 8, 9 };
+            //int k = 5;
+            int k = 6;
+
+            Dictionary<int, int> mp = new Dictionary<int, int>();
+            mp[0] = 1;
+            int xor = 0;
+            int count = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                xor = xor ^ nums[i];
+                int key = xor ^ k;
+
+                if (mp.ContainsKey(key))
+                {
+                    if (mp[key] > 0)
+                    {
+                        count += mp[key];
+                    }
+                }
+
+                if (mp.ContainsKey(nums[i]))
+                {
+                    mp[nums[i]]++;
+                }
+                else
+                {
+                    mp.Add(nums[i], 1);
+                }
+            }
+
+            Console.WriteLine(count);
+
+        }
+
+
+        public void RotateArray()
+        {
+            int[] nums = { 1, 2, 3, 4, 5, 6, 7 };
+            int k = 3;
+
+            int[] arr = new int[nums.Length];
+
+            k = k % nums.Length;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                arr[(i + k) % nums.Length] = nums[i];
+            }
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.WriteLine(arr[i]);
+            }
+        }
+
+
+        public void PivotIndex()
+        {
+            int[] nums = { 1, 7, 3, 6, 5, 6 };
+            //int[] nums = { 2, 1, -1 };
+
+
+            int[] prefixSum = new int[nums.Length + 1];
+            int[] suffixSum = new int[nums.Length + 1];
+
+            for (int i = 1, j = nums.Length - 1; i <= nums.Length && j >= 0; i++, j--)
+            {
+                prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
+                suffixSum[j] = suffixSum[j + 1] + nums[j];
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (prefixSum[i + 1] == suffixSum[i])
+                {
+                    Console.WriteLine("Pivot is " + (i));
+                }
+            }
+
+        }
+
+        int AtMostSum(int[] arr, int goal)
+        {
+            int res = 0;
+            int j = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                goal -= arr[i];
+
+                while (goal < 0)
+                {
+                    goal += arr[j++];
+                }
+                res += i - j + 1;
+            }
+            return res;
+
+        }
+
+        public void BinarySubarraySumK()
+        {
+            int[] nums = { 1, 0, 1, 0, 1 };
+            int k = 2;
+
+
+            // Using sliding window
+            int res = AtMostSum(nums, k) - AtMostSum(nums, k - 1);
+            Console.WriteLine(res);
+
+
+        }
+
+
+        float atMostAvg(int[] arr, int goal)
+        {
+            int j = 0;
+            int sum = 0;
+            int temp = goal;
+            float maxAvg = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+
+                sum += arr[i];
+                goal--;
+
+                if (goal == 0)
+                {
+                    maxAvg = Math.Max(maxAvg, (float)((float)sum / (float)temp));
+                    goal++;
+                    sum = sum - arr[j++];
+                }
+            }
+
+            return maxAvg;
+        }
+
+        public void MaxAverageSubarray()
+        {
+            int[] nums = { 1, 12, -5, -6, 50, 3 };
+            int k = 4;
+
+
+            // At most is not required as the goal should be exactly equal to the k
+            float avg = atMostAvg(nums, k);
+
+            Console.WriteLine(avg);
+
+        }
+
+
+        int atMostMinSum(int[] arr, int target)
+        {
+            int minLen = arr.Length + 1;
+
+            int j = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                target -= arr[i];
+
+                while (target <= 0)
+                {
+                    target += arr[j];
+                    minLen = Math.Min(minLen, i - j + 1);
+                    j++;
+                }
+            }
+
+            return minLen % (arr.Length + 1);
+        }
+
+        public void MinimumSizeSubarraySum()
+        {
+            int[] nums = { 2, 3, 1, 2, 4, 3 };
+            int k = 7;
+
+            Console.WriteLine(atMostMinSum(nums, k));
+        }
+
+        public void MaxConsecutiveOne()
+        {
+            int[] nums = { 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 };
+            int k = 2;
+
+
+            int j = 0;
+            int maxLen = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == 0) k--;
+
+                while (k < 0)
+                {
+                    if (nums[j] == 0)
+                    {
+                        k++;
+                    }
+
+                    j++;
+                }
+
+
+                maxLen = Math.Max(maxLen, i - j + 1);
+
+            }
+
+            Console.WriteLine(maxLen);
         }
 
     }
