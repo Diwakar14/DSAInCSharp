@@ -19,7 +19,9 @@
             // a.PalindromicProductOfThree();
             // a.FindLargestDigitInGivenN();
             // a.MaxOccuranceOfChar();
-            a.FindDuplicateInArray();
+            // a.FindDuplicateInArray();
+            // a.SuffleDeckOfCard();
+            a.FindSubSetHavingSumK();
 
 
 

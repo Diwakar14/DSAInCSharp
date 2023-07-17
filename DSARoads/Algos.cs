@@ -375,9 +375,36 @@ namespace DSARoads
             System.Console.WriteLine(largestPalindrome);
         }
 
+        public int[] Randomize(int[] arr)
+        {
+            var rand = new Random();
+
+            for (int i = 0; i <= 51; i++)
+            {
+                int newIndex = rand.Next(51);
+                int temp = arr[i];
+                arr[i] = arr[newIndex];
+                arr[newIndex] = temp;
+            }
+
+            return arr;
+        }
         public void SuffleDeckOfCard()
         {
-            new Random(51);
+            int[] card = new int[52];
+
+            for (int i = 0; i <= 51; i++)
+            {
+                card[i] = i;
+            }
+
+            int[] suffledArr = Randomize(card);
+            for (int i = 0; i <= 51; i++)
+            {
+                System.Console.WriteLine(suffledArr[i]);
+            }
+
+
         }
 
         public void FindLargestDigitInGivenN()
@@ -466,6 +493,34 @@ namespace DSARoads
 
         public void FindSubSetHavingSumK()
         {
+            int[] nums = { 1, 2, 3, 5 };
+            int k = 5;
+
+            Dictionary<int, int> mp = new();
+            mp[0] = 1;
+
+            int sum = 0;
+            int count = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                sum += nums[i];
+
+                if (mp.ContainsKey(sum - k))
+                {
+                    count += mp[sum - k];
+                }
+
+                if (mp.ContainsKey(sum))
+                {
+                    mp[sum]++;
+                }
+                else
+                {
+                    mp.Add(sum, 1);
+                }
+            }
+
+            System.Console.WriteLine(count);
 
         }
 
