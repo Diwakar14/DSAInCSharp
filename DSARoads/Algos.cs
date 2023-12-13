@@ -1121,5 +1121,52 @@ namespace DSARoads
             Console.WriteLine(maxLen);
         }
 
+        public void MinimunPositiveMissing()
+        {
+            int[] nums = { 1, 2, 0 };
+
+            int max = nums.Max();
+
+            if (nums.Length == 1)
+            {
+
+                // If it contains only one element
+                if (nums[0] == 1)
+                {
+                    Console.WriteLine(2);
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine(1);
+                    return;
+                }
+            }
+
+            int[] m = new int[max];
+
+            int i;
+            for (i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] > 0)
+                {
+                    if(m[nums[i] - 1]!=1)
+                    m[nums[i]-1] = 1;
+                }
+            }
+
+
+            for (i = 0; i < m.Length; i++)
+            {
+                if (m[i] > 0) 
+                {
+                    Console.WriteLine(i+1);
+                    return;
+                }
+            }
+
+            Console.WriteLine(i+2);
+        }
+
     }
 }

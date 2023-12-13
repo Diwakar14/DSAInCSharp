@@ -2,9 +2,9 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Algos a = new Algos();
+             Algos a = new Algos();
             //a.RemoveEvenNumber();
             //a.PalindromString();
             //a.MinInAArray();
@@ -41,8 +41,23 @@
             //a.MinimumSizeSubarraySum();
 
 
-            Basics b = new Basics();
+            //Basics b = new Basics();
+            //await b.PrepareBreakFast();
+            //Console.WriteLine("Meanhile let's boils some eggs");
+            //Thread.Sleep(100);
+            //Console.WriteLine("Eggs boiled...");
 
+            //int numberOfPeople = 5;
+            //int afterCooked;
+            //b.PrepareLunch(ref numberOfPeople,out afterCooked);
+
+            //Console.WriteLine(numberOfPeople);
+            //Console.WriteLine(afterCooked);
+            //await b.PrepareDinner(5);
+
+
+
+            a.MinimunPositiveMissing();
 
 
         }
